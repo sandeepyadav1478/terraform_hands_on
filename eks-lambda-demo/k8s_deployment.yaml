@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lambda-invoker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lambda-invoker
+  template:
+    metadata:
+      labels:
+        app: lambda-invoker
+    spec:
+      containers:
+      - name: lambda-invoker
+        image: curlimages/curl:latest
+        command: 
+          - "/bin/sh"
+          - "-c"
+          - "while true; do curl -sS <your_lambda_invoke_url> && sleep 5; done"
