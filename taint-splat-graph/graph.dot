@@ -1,0 +1,20 @@
+digraph {
+	compound = "true"
+	newrank = "true"
+	subgraph "root" {
+		"[root] aws_iam_user.iamusers (expand)" [label = "aws_iam_user.iamusers", shape = "box"]
+		"[root] aws_instance.example (expand)" [label = "aws_instance.example", shape = "box"]
+		"[root] aws_instance.example1 (expand)" [label = "aws_instance.example1", shape = "box"]
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"].prod" [label = "provider[\"registry.terraform.io/hashicorp/aws\"].prod", shape = "diamond"]
+		"[root] aws_iam_user.iamusers (expand)" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"].prod"
+		"[root] aws_instance.example (expand)" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"].prod"
+		"[root] aws_instance.example1 (expand)" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"].prod"
+		"[root] output.iamarns (expand)" -> "[root] aws_iam_user.iamusers (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"].prod (close)" -> "[root] aws_iam_user.iamusers (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"].prod (close)" -> "[root] aws_instance.example (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"].prod (close)" -> "[root] aws_instance.example1 (expand)"
+		"[root] root" -> "[root] output.iamarns (expand)"
+		"[root] root" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"].prod (close)"
+	}
+}
+
