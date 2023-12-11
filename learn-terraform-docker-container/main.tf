@@ -1,29 +1,25 @@
 terraform {
-  cloud {
-    organization = "sandeepyadav1478-org"
-    workspaces {
-      name = "learn-tfc-aws"
-    }
-  }
   required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 4.16"
+    docker = {
+      source  = "kreuzwerker/docker"
+      version = "~> 3.0.1"
     }
   }
-
-  required_version = ">= 1.2.0"
 }
 
-provider "aws" {
-  region = "ap-south-1"
+provider "docker" {}
+
+resource "docker_image" "nginx" {
+  name         = "nginx"
+  keep_locally = false
 }
 
-resource "aws_instance" "app_server" {
-  ami           = "ami-0da59f1af71ea4ad2"
-  instance_type = "t2.micro"
+resource "docker_container" "nginx" {
+  image = docker_image.nginx.image_id
+  name  = "tutorial"
 
-  tags = {
-    Name = var.instance_name
+  ports {
+    internal = 80
+    external = 8000
   }
 }
